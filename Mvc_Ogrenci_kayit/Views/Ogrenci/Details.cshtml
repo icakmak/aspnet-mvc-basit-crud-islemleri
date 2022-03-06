@@ -1,0 +1,58 @@
+﻿@model Mvc_Ogrenci_kayit.Models.TBL_Ogrenci
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TBL_Ogrenci</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OgrAd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OgrAd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OgrSoyad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OgrSoyad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OgrMail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OgrMail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OgrAdres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OgrAdres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OgrFotograf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OgrFotograf)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OgrId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

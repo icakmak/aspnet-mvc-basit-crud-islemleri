@@ -5,7 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="de8d69b421c349c3a9caf51c80efacf2" Name="Diagram1">
-        <EntityTypeShape EntityType="OgrenciModel.TBL_Ogrenci" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OgrenciModel.TBL_Ogrenci" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="OgrenciModel.TBL_Dersler" Width="1.5" PointX="2.875" PointY="1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

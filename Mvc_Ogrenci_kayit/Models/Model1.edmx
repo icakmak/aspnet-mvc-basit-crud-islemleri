@@ -4,7 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OgrenciModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OgrenciModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_Dersler">
+          <Key>
+            <PropertyRef Name="DersId" />
+          </Key>
+          <Property Name="DersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DersAdi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="TBL_Ogrenci">
           <Key>
             <PropertyRef Name="OgrId" />
@@ -17,10 +24,10 @@
           <Property Name="OgrFotograf" Type="nchar" MaxLength="500" />
         </EntityType>
         <EntityContainer Name="OgrenciModelStoreContainer">
+          <EntitySet Name="TBL_Dersler" EntityType="Self.TBL_Dersler" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Ogrenci" EntityType="Self.TBL_Ogrenci" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OgrenciModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -37,7 +44,15 @@
         </EntityType>
         <EntityContainer Name="OgrenciEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TBL_Ogrenci" EntityType="Self.TBL_Ogrenci" />
+          <EntitySet Name="TBL_Dersler" EntityType="OgrenciModel.TBL_Dersler" />
         </EntityContainer>
+        <EntityType Name="TBL_Dersler">
+          <Key>
+            <PropertyRef Name="DersId" />
+          </Key>
+          <Property Name="DersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DersAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -53,6 +68,14 @@
                 <ScalarProperty Name="OgrMail" ColumnName="OgrMail" />
                 <ScalarProperty Name="OgrAdres" ColumnName="OgrAdres" />
                 <ScalarProperty Name="OgrFotograf" ColumnName="OgrFotograf" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Dersler">
+            <EntityTypeMapping TypeName="OgrenciModel.TBL_Dersler">
+              <MappingFragment StoreEntitySet="TBL_Dersler">
+                <ScalarProperty Name="DersAdi" ColumnName="DersAdi" />
+                <ScalarProperty Name="DersId" ColumnName="DersId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

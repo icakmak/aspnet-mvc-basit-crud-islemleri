@@ -26,5 +26,6 @@ namespace Mvc_Ogrenci_kayit.Models
         }
     
         public virtual DbSet<TBL_Ogrenci> TBL_Ogrenci { get; set; }
+        public virtual DbSet<TBL_Dersler> TBL_Dersler { get; set; }
     }
 }

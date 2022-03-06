@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Mvc_Ogrenci_kayit.Models.TBL_Dersler>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <h2>Ders Listesi</h2>
+    </div>
+    <div class="col-md-3 text-right">
+        <a href="/ders/create" class="btn btn-primary" style="margin-top:10px">Yeni Ders Kaydı</a>
+    </div>
+</div>
+
+
+<table class="table table-sm table-striped">
+    <tr>
+        <th style="width:80%">
+            @Html.DisplayNameFor(model => model.DersAdi)
+        </th>
+        <th style="width:20%">İşlemler</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            Dersler
+        </td>
+        <td>
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="/ders/Edit/@item.DersId" class="btn btn-warning btn-sm">Update</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="/ders/Details/@item.DersId" class="btn btn-success btn-sm">Detail</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="/ders/Delete/@item.DersId" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+}
+
+</table>

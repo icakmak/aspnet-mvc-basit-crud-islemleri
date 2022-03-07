@@ -52,6 +52,17 @@ namespace Mvc_Ogrenci_kayit.Controllers
             {
                 db.TBL_Dersler.Add(tBL_Dersler);
                 db.SaveChanges();
+                var ogrenci = db.TBL_Ogrenci.ToList();
+                TBL_Not not = new TBL_Not();
+                foreach (var item in ogrenci)
+                {
+                    not.OgrenciID = item.OgrId;
+                    not.DersID = tBL_Dersler.DersId;
+                    not.not1 = 0;
+                    not.not2 = 0;
+                    db.TBL_Not.Add(not);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 
@@ -110,8 +121,17 @@ namespace Mvc_Ogrenci_kayit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TBL_Dersler tBL_Dersler = db.TBL_Dersler.Find(id);
+            var not = db.TBL_Not.Where(i => i.DersID == id).ToList();
+
+            foreach (var item in not)
+            {
+                //Console.WriteLine(item.OgrenciID);
+                db.TBL_Not.Remove(db.TBL_Not.Find(item.NotId));
+                db.SaveChanges();
+            }
             db.TBL_Dersler.Remove(tBL_Dersler);
             db.SaveChanges();
+            
             return RedirectToAction("Index");
         }
 

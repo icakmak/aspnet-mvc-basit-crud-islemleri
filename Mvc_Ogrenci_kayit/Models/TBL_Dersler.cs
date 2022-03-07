@@ -14,7 +14,16 @@ namespace Mvc_Ogrenci_kayit.Models
     
     public partial class TBL_Dersler
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TBL_Dersler()
+        {
+            this.TBL_Not = new HashSet<TBL_Not>();
+        }
+    
         public int DersId { get; set; }
         public string DersAdi { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Not> TBL_Not { get; set; }
     }
 }

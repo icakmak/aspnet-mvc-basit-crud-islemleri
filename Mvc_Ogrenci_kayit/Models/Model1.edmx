@@ -12,6 +12,16 @@
           <Property Name="DersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DersAdi" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="TBL_Not">
+          <Key>
+            <PropertyRef Name="NotId" />
+          </Key>
+          <Property Name="NotId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OgrenciID" Type="int" />
+          <Property Name="DersID" Type="int" />
+          <Property Name="not1" Type="int" />
+          <Property Name="not2" Type="int" />
+        </EntityType>
         <EntityType Name="TBL_Ogrenci">
           <Key>
             <PropertyRef Name="OgrId" />
@@ -23,9 +33,42 @@
           <Property Name="OgrAdres" Type="nvarchar" MaxLength="50" />
           <Property Name="OgrFotograf" Type="nchar" MaxLength="500" />
         </EntityType>
+        <Association Name="FK_TBL_Not_TBL_Dersler">
+          <End Role="TBL_Dersler" Type="Self.TBL_Dersler" Multiplicity="0..1" />
+          <End Role="TBL_Not" Type="Self.TBL_Not" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Dersler">
+              <PropertyRef Name="DersId" />
+            </Principal>
+            <Dependent Role="TBL_Not">
+              <PropertyRef Name="DersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_Not_TBL_Ogrenci">
+          <End Role="TBL_Ogrenci" Type="Self.TBL_Ogrenci" Multiplicity="0..1" />
+          <End Role="TBL_Not" Type="Self.TBL_Not" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Ogrenci">
+              <PropertyRef Name="OgrId" />
+            </Principal>
+            <Dependent Role="TBL_Not">
+              <PropertyRef Name="OgrenciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="OgrenciModelStoreContainer">
           <EntitySet Name="TBL_Dersler" EntityType="Self.TBL_Dersler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Not" EntityType="Self.TBL_Not" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Ogrenci" EntityType="Self.TBL_Ogrenci" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBL_Not_TBL_Dersler" Association="Self.FK_TBL_Not_TBL_Dersler">
+            <End Role="TBL_Dersler" EntitySet="TBL_Dersler" />
+            <End Role="TBL_Not" EntitySet="TBL_Not" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_Not_TBL_Ogrenci" Association="Self.FK_TBL_Not_TBL_Ogrenci">
+            <End Role="TBL_Ogrenci" EntitySet="TBL_Ogrenci" />
+            <End Role="TBL_Not" EntitySet="TBL_Not" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -41,10 +84,20 @@
           <Property Name="OgrMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OgrAdres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OgrFotograf" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="TBL_Not" Relationship="OgrenciModel.FK_TBL_Not_TBL_Ogrenci" FromRole="TBL_Ogrenci" ToRole="TBL_Not" />
         </EntityType>
         <EntityContainer Name="OgrenciEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TBL_Ogrenci" EntityType="Self.TBL_Ogrenci" />
           <EntitySet Name="TBL_Dersler" EntityType="OgrenciModel.TBL_Dersler" />
+          <EntitySet Name="TBL_Not" EntityType="OgrenciModel.TBL_Not" />
+          <AssociationSet Name="FK_TBL_Not_TBL_Dersler" Association="OgrenciModel.FK_TBL_Not_TBL_Dersler">
+            <End Role="TBL_Dersler" EntitySet="TBL_Dersler" />
+            <End Role="TBL_Not" EntitySet="TBL_Not" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBL_Not_TBL_Ogrenci" Association="OgrenciModel.FK_TBL_Not_TBL_Ogrenci">
+            <End Role="TBL_Ogrenci" EntitySet="TBL_Ogrenci" />
+            <End Role="TBL_Not" EntitySet="TBL_Not" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="TBL_Dersler">
           <Key>
@@ -52,7 +105,44 @@
           </Key>
           <Property Name="DersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DersAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_Not" Relationship="OgrenciModel.FK_TBL_Not_TBL_Dersler" FromRole="TBL_Dersler" ToRole="TBL_Not" />
         </EntityType>
+        <EntityType Name="TBL_Not">
+          <Key>
+            <PropertyRef Name="NotId" />
+          </Key>
+          <Property Name="NotId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OgrenciID" Type="Int32" />
+          <Property Name="DersID" Type="Int32" />
+          <Property Name="not1" Type="Int32" />
+          <Property Name="not2" Type="Int32" />
+          <NavigationProperty Name="TBL_Dersler" Relationship="OgrenciModel.FK_TBL_Not_TBL_Dersler" FromRole="TBL_Not" ToRole="TBL_Dersler" />
+          <NavigationProperty Name="TBL_Ogrenci" Relationship="OgrenciModel.FK_TBL_Not_TBL_Ogrenci" FromRole="TBL_Not" ToRole="TBL_Ogrenci" />
+        </EntityType>
+        <Association Name="FK_TBL_Not_TBL_Dersler">
+          <End Type="OgrenciModel.TBL_Dersler" Role="TBL_Dersler" Multiplicity="0..1" />
+          <End Type="OgrenciModel.TBL_Not" Role="TBL_Not" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Dersler">
+              <PropertyRef Name="DersId" />
+            </Principal>
+            <Dependent Role="TBL_Not">
+              <PropertyRef Name="DersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBL_Not_TBL_Ogrenci">
+          <End Type="OgrenciModel.TBL_Ogrenci" Role="TBL_Ogrenci" Multiplicity="0..1" />
+          <End Type="OgrenciModel.TBL_Not" Role="TBL_Not" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Ogrenci">
+              <PropertyRef Name="OgrId" />
+            </Principal>
+            <Dependent Role="TBL_Not">
+              <PropertyRef Name="OgrenciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -76,6 +166,17 @@
               <MappingFragment StoreEntitySet="TBL_Dersler">
                 <ScalarProperty Name="DersAdi" ColumnName="DersAdi" />
                 <ScalarProperty Name="DersId" ColumnName="DersId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Not">
+            <EntityTypeMapping TypeName="OgrenciModel.TBL_Not">
+              <MappingFragment StoreEntitySet="TBL_Not">
+                <ScalarProperty Name="not2" ColumnName="not2" />
+                <ScalarProperty Name="not1" ColumnName="not1" />
+                <ScalarProperty Name="DersID" ColumnName="DersID" />
+                <ScalarProperty Name="OgrenciID" ColumnName="OgrenciID" />
+                <ScalarProperty Name="NotId" ColumnName="NotId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

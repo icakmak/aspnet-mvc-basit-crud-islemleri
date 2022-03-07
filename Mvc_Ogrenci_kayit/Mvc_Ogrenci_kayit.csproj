@@ -152,6 +152,9 @@
     <Compile Include="Models\TBL_Dersler.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TBL_Not.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TBL_Ogrenci.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -224,6 +227,7 @@
     <Content Include="Views\Ders\Details.cshtml" />
     <Content Include="Views\Ders\Edit.cshtml" />
     <Content Include="Views\Ders\Index.cshtml" />
+    <Content Include="Views\Ogrenci\NotGirisi.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

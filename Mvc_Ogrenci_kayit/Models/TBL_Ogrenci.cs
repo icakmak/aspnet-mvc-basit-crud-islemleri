@@ -14,11 +14,20 @@ namespace Mvc_Ogrenci_kayit.Models
     
     public partial class TBL_Ogrenci
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TBL_Ogrenci()
+        {
+            this.TBL_Not = new HashSet<TBL_Not>();
+        }
+    
         public int OgrId { get; set; }
         public string OgrAd { get; set; }
         public string OgrSoyad { get; set; }
         public string OgrMail { get; set; }
         public string OgrAdres { get; set; }
         public string OgrFotograf { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Not> TBL_Not { get; set; }
     }
 }

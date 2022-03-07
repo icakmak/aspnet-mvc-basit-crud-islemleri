@@ -1,7 +1,7 @@
 ﻿@model Mvc_Ogrenci_kayit.Models.TBL_Ogrenci
 
 @{
-    ViewBag.Title = "Details";
+ViewBag.Title =@Model.OgrAd+" "+@Model.OgrSoyad + " Öğrenci Detayları ";
 }
 
 <div class="row">
@@ -20,54 +20,91 @@
     </div>
 </div>
 <div class="row">
-
-
     <hr />
-    <div class="col-md-3">
-        <img src="@Model.OgrFotograf" width="100px" height="100px" />
+    <div class="col-md-3 text-center">
+        <img src="@Model.OgrFotograf" width="200px" height="200px" />
 
     </div>
     <div class="col-md-9">
-        <dl class="dl-horizontal">
-            <dt>
-                Adı
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.OgrAd)
-            </dd>
-
-            <dt>
-                Soyadı
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.OgrSoyad)
-            </dd>
-
-            <dt>
-                Mail
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.OgrMail)
-            </dd>
-
-            <dt>
-                Adres
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.OgrAdres)
-            </dd>
-
-        </dl>
+        <div class="row">
+            <div class="col-lg-9">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th colspan="2" class="success">Öğrenci Bilgileri</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Adı</th>
+                            <td>@Model.OgrAd</td>
+                        </tr>
+                        <tr>
+                            <th>Soyadı</th>
+                            <td>@Model.OgrSoyad</td>
+                        </tr>
+                        <tr>
+                            <th>Mail</th>
+                            <td>@Model.OgrMail</td>
+                        </tr>
+                        <tr>
+                            <th>Adres</th>
+                            <td>@Model.OgrAdres</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <label for="">Not Ortamalası</label>
+                    </div>
+                    <div class="panel-body text-center">
+                        <h1>@ViewBag.Ort</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
 
-
-<p>
-
-
-</p>
+<hr />
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-9 ">
+                <h5 class="text-bold">Öğrenci Notları</h5>
+            </div>
+            <div class="col-md-3 text-right">
+                <!-- <a href="/ogrenci/notgirisi/@Model.OgrId" class="btn btn-success">Yeni Not Girişi</a> -->
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr class="success">
+                    <th style="width: 45%;">Ders Adı</th>
+                    <th style="width: 15%;">1.Sınav</th>
+                    <th style="width: 15%;">2.Sınav</th>
+                    <th style="width: 15%;">Ortalama</th>
+                    <th style="width: 10%;">#</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Not)
+                {
+                <tr>
+                    <td>@item.TBL_Dersler.DersAdi</td>
+                    <td class="text-center">@item.not1</td>
+                    <td class="text-center">@item.not2</td>
+                    <td class="text-center">@((item.not1 + item.not2) / 2)</td>
+                    <td class="text-right">
+                        <a href="/ogrenci/notgirisi/?NotID=@item.NotId&OgrenciID=@item.OgrenciID&DersID=@item.DersID" class="btn btn-success">Edit</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

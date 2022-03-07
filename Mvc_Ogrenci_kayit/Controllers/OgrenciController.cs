@@ -32,6 +32,15 @@ namespace Mvc_Ogrenci_kayit.Controllers
             {
                 return HttpNotFound();
             }
+
+            var notlar= db.TBL_Not.Where(i=>i.OgrenciID==id).ToList();
+            var sonuc = 0;
+            foreach (var item in notlar)
+            {
+                sonuc += (Convert.ToInt32(item.not1) + Convert.ToInt32(item.not2))/2;
+            }
+            ViewBag.Ort = sonuc / notlar.Count();
+            ViewBag.Not = notlar;
             return View(tBL_Ogrenci);
         }
 
@@ -52,6 +61,19 @@ namespace Mvc_Ogrenci_kayit.Controllers
             {
                 db.TBL_Ogrenci.Add(tBL_Ogrenci);
                 db.SaveChanges();
+                TBL_Not not = new TBL_Not();
+                var ders = db.TBL_Dersler.ToList();
+                foreach (var item in ders)
+                {
+                    not.OgrenciID = tBL_Ogrenci.OgrId;
+                    not.DersID = item.DersId;
+                    not.not1 = 0;
+                    not.not2 = 0;
+                    db.TBL_Not.Add(not);
+                    db.SaveChanges();
+
+                }
+                
                 return RedirectToAction("Index");
             }
 
@@ -110,9 +132,42 @@ namespace Mvc_Ogrenci_kayit.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TBL_Ogrenci tBL_Ogrenci = db.TBL_Ogrenci.Find(id);
+
+            var not = db.TBL_Not.Where(i => i.OgrenciID == id).ToList();
+
+            foreach (var item in not)
+            {
+                //Console.WriteLine(item.OgrenciID);
+                db.TBL_Not.Remove(db.TBL_Not.Find(item.NotId));
+                db.SaveChanges();
+            }
+
             db.TBL_Ogrenci.Remove(tBL_Ogrenci);
+            
             db.SaveChanges();
+        
+            
+            
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult NotGirisi(int OgrenciID,int DersID,int NotID)
+        {
+            ViewBag.Ogrenci = db.TBL_Ogrenci.Find(OgrenciID);
+            ViewBag.Dersler = db.TBL_Dersler.Find(DersID);
+            ViewBag.Notlar = db.TBL_Not.Find(NotID);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult NotGirisi(int OgrenciID, int DersID, int NotID, int not1, int not2)
+        {
+            TBL_Not not = db.TBL_Not.Find(NotID);
+            not.not1 = not1;
+            not.not2 = not2;
+            db.SaveChanges();
+            //ViewBag.Dersler = db.TBL_Dersler.ToList();
+            return RedirectToAction("Details", new { id = OgrenciID });
         }
 
         protected override void Dispose(bool disposing)

@@ -1,0 +1,26 @@
+﻿@{
+ViewBag.Title = "NotGirisi";
+}
+
+<h2>NotGirisi</h2>
+<hr />
+<div class="row">
+    <form method="post">
+        <div class="col-lg-4">
+            <label>Ders Adı</label>
+            <p>@ViewBag.Dersler.DersAdi</p>
+        </div>
+        <div class="col-lg-3">
+            <label>Not 1</label>
+            <input type="text" name="not1" class="form-control" value="@ViewBag.Notlar.not1" />
+        </div>
+        <div class="col-lg-3">
+            <label>Not 2</label>
+            <input type="text" name="not2" class="form-control" value="@ViewBag.Notlar.not2" />
+        </div>
+        <div class="col-lg-2">
+            <label>İşlem</label>
+            <button type="submit" class="btn btn-success btn-block">Ekle</button>
+        </div>
+    </form>
+</div>

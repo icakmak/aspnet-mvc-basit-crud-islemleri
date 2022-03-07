@@ -17,7 +17,7 @@
 <table class="table table-sm table-striped">
     <tr>
         <th style="width:80%">
-            @Html.DisplayNameFor(model => model.DersAdi)
+            Ders Adı
         </th>
         <th style="width:20%">İşlemler</th>
     </tr>
@@ -25,7 +25,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            Dersler
+            @item.DersAdi
         </td>
         <td>
             <div class="row">
